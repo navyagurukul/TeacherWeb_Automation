@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main', url: 'https://github.com/navyagurukul/TeacherWeb_Automation'
+                git branch: 'main', url: 'https://github.com/navyagurukul/TeacherWeb_Automation.git'
             }
         }
 
