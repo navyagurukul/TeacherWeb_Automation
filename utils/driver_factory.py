@@ -15,7 +15,7 @@ def driver():
     options.add_argument("--disable-dev-shm-usage")
 
     # ❌ REMOVE this line if present:
-    # options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
 
     # ✅ Correct page load strategy
     options.page_load_strategy = "normal"   # OR "eager"
