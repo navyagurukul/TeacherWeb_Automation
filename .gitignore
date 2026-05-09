@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Virtual env
+.venv/
+env/
+
+# VS Code
+.vscode/
+
+# Allure
+allure-results/
+allure-report/
+
+# Reports
+reports/
+*.html
+
+# Logs
+*.log
+
+# Screenshots
+*.png
+
+# Env
+.env
+
+# Misc
+*.vsix
