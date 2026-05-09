@@ -14,7 +14,7 @@ class LoginPage(BasePage):
 
 
     def open(self):
-        self.driver.get("https://esteacher.englishgurukul.in/")
+        self.driver.get("https://teacher.englishgurukul.in/")
         time.sleep(3)
         self.wait.until(
             EC.presence_of_element_located(self.SEARCH_SCHOOL)
