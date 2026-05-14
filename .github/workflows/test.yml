@@ -13,101 +13,120 @@ jobs:
   smoke-tests:
     name: Smoke Tests
     if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     env:
       TEACHER_WEB: https://teacher.englishgurukul.in/
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Check Python
+        run: |
+          python --version
+          pip --version
 
-      - name: Install dependencies
+      - name: Install Dependencies
+        shell: powershell
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
           playwright install || true
 
-      - name: Install Chrome
-        uses: browser-actions/setup-chrome@v1
-
       - name: Run Smoke Tests
+        shell: powershell
         run: |
-          pytest -m smoke -n auto --alluredir=allure-results
-
+          pytest -m smoke -v -s --alluredir=allure-results
 
       - name: Install Allure CLI
+        shell: powershell
         run: |
-          npm install -g allure-commandline --save-dev
-          allure --version
+          npm install -g allure-commandline
 
       - name: Generate Allure Report
+        shell: powershell
         run: |
           allure generate allure-results --clean -o allure-report
 
-      - name: Upload Allure Report
+      - name: Upload Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: smoke-allure-report
           path: allure-report
+
+      - name: Upload Screenshots
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-screenshots
+          path: screenshots/
+
+
+  # ================= GITHUB PAGES =================
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
+
+      - name: Deploy Report
+        uses: actions/deploy-pages@v4
 
 
   # ===================== REGRESSION TEST JOB =====================
   regression-tests:
     name: Regression Tests
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     env:
       TEACHER_WEB: https://teacher.englishgurukul.in/
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
+      - name: Check Python
+        run: |
+          python --version
+          pip --version
 
-      - name: Install dependencies
+      - name: Install Dependencies
+        shell: powershell
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
           playwright install || true
 
-      - name: Install Chrome
-        uses: browser-actions/setup-chrome@v1
-
       - name: Run Regression Tests
+        shell: powershell
         run: |
-          pytest -m regression -n auto --alluredir=allure-results
+          pytest -m regression -v -s --alluredir=allure-results
 
       - name: Install Allure CLI
+        shell: powershell
         run: |
-          npm install -g allure-commandline --save-dev
-          allure --version
+          npm install -g allure-commandline
 
       - name: Generate Allure Report
+        shell: powershell
         run: |
           allure generate allure-results --clean -o allure-report
 
-      - name: Upload Allure Report
+      - name: Upload Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: regression-allure-report
           path: allure-report
 
-      - name: Upload screenshots (on failure)
+      - name: Upload Screenshots
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: regression-screenshots
           path: |
             *.png
-            reports/*.png
+            reports/*.png   ----    this is for web teacher im having for test.yml,  need for andriod teacher,  created these in github/workflow/test.yml and gihub/workflow/act.history.json
