@@ -110,4 +110,4 @@ jobs:
           name: regression-screenshots
           path: |
             *.png
-            reports/*.png   ----    this is for web teacher im having for test.yml,  need for andriod teacher,  created these in github/workflow/test.yml and gihub/workflow/act.history.json
+            reports/*.png
