@@ -22,10 +22,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.15"
+      - name: Check Python
+        run: |
+          python --version
+          pip --version
 
       - name: Install Dependencies
         shell: powershell
@@ -80,7 +80,7 @@ jobs:
   regression-tests:
     name: Regression Tests
     if: github.event_name != 'pull_request'
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     env:
       TEACHER_WEB: https://teacher.englishgurukul.in/
@@ -89,10 +89,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.15"
+      - name: Check Python
+        run: |
+          python --version
+          pip --version
 
       - name: Install Dependencies
         shell: powershell
