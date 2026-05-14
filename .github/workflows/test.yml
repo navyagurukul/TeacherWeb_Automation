@@ -12,7 +12,7 @@ jobs:
   # ===================== SMOKE TEST JOB =====================
   smoke-tests:
     name: Smoke Tests
-    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     env:
@@ -110,4 +110,4 @@ jobs:
           name: regression-screenshots
           path: |
             *.png
-            reports/*.png   ----    this is for web teacher im having for test.yml,  need for andriod teacher,  created these in github/workflow/test.yml and gihub/workflow/act.history.json
+            reports/*.png
