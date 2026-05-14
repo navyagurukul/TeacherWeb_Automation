@@ -32,6 +32,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+          playwright install || true
 
       - name: Run Smoke Tests
         shell: powershell
@@ -98,6 +99,7 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
+          playwright install || true
 
       - name: Run Regression Tests
         shell: powershell
