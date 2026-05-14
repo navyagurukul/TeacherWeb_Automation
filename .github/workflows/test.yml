@@ -12,7 +12,7 @@ jobs:
   # ===================== SMOKE TEST JOB =====================
   smoke-tests:
     name: Smoke Tests
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request' || github.event_name == 'push' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     env:
