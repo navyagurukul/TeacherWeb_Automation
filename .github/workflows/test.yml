@@ -32,24 +32,19 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           playwright install || true
-
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
       - name: Run Smoke Tests
         run: |
           pytest -m smoke -n auto --alluredir=allure-results
-
-
       - name: Install Allure CLI
         run: |
           npm install -g allure-commandline --save-dev
           allure --version
-
       - name: Generate Allure Report
         run: |
           allure generate allure-results --clean -o allure-report
-
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
@@ -80,23 +75,19 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
           playwright install || true
-
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
 
       - name: Run Regression Tests
         run: |
           pytest -m regression -n auto --alluredir=allure-results
-
       - name: Install Allure CLI
         run: |
           npm install -g allure-commandline --save-dev
           allure --version
-
       - name: Generate Allure Report
         run: |
           allure generate allure-results --clean -o allure-report
-
       - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         with:
